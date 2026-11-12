@@ -358,7 +358,7 @@ body.touch .tut{top:150px}
           <div class="how" style="margin-top:8px">
             <span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></span><span>Yürü</span>
             <span>Fare</span><span>Nişan al, sol tuş ateş, sağ tuş el bombası</span>
-            <span><kbd>1</kbd>–<kbd>6</kbd> / <kbd>Q</kbd></span><span>Silah değiştir (6 = sopa)</span>
+            <span><kbd>1</kbd>–<kbd>8</kbd> / <kbd>Q</kbd></span><span>Silah değiştir (6 sopa, 7 şimşek, 8 bombaatar)</span>
             <span><kbd>R</kbd></span><span>Şarjör değiştir</span>
             <span><kbd>Shift</kbd> / <kbd>Boşluk</kbd></span><span>Atıl</span>
             <span><kbd>G</kbd> <kbd>B</kbd> <kbd>T</kbd></span><span>El bombası, barikat, diken tuzağı</span>
@@ -534,20 +534,24 @@ body.touch .tut{top:150px}
     yuksek:{name:'Yüksek', hint:'Yumuşak gölgeler, yoğun çimen, yağmur sıçramaları. Güçlü cihazlar için.', pr:2, shadow:2048, post:true, grass:6500, mist:true, zShadow:true, splash:true},
   };
   const CHARS = {
-    asker:{name:'Asker', color:'#4f7a3f', desc:'Dengeli. Fazladan 1 el bombasıyla başlar.', hp:100, speed:5.2, dmg:1, dashCd:2.4, grenades:1, jacket:0x4b5e3a, cap:0x3a4a2e},
-    kosucu:{name:'Koşucu', color:'#2f7fc0', desc:'%20 daha hızlı, atılma çok daha sık. Canı 80.', hp:80, speed:6.25, dmg:1, dashCd:1.5, jacket:0x2f5b9a, cap:0xb83b3b},
-    agir:{name:'Ağır asker', color:'#8a6a3a', desc:'140 can, %10 fazla hasar, av tüfeğiyle başlar. Yavaştır.', hp:140, speed:4.5, dmg:1.1, dashCd:3, weapon:'shotgun', jacket:0x5a4a32, cap:0x2f2a24},
-    muhendis:{name:'Mühendis', color:'#d08a2a', desc:'2 barikat ve 2 tuzakla başlar. Tuzakları uzun sürer, donanım %25 ucuz.', hp:95, speed:5, dmg:1, dashCd:2.4, barr:2, trap:2, trapMul:1.6, discount:.75, jacket:0xc77a1e, cap:0xe8c23a},
+    asker:{name:'Asker', color:'#4f7a3f', desc:'Disiplin: şarjörü %25 hızlı değiştirir, her dalga başında +1 el bombası alır. 100 can, dengeli.', hp:100, speed:5.2, dmg:1, dashCd:2.4, grenades:1, reloadMul:.75, waveGren:true, jacket:0x4b5e3a, cap:0x3a4a2e},
+    kosucu:{name:'Koşucu', color:'#2f7fc0', desc:'Rüzgar: atılırken çarptığı zombileri yaralar, atılmadan sonra kısa süre hızlanır. Çok hızlı, sık atılır. 80 can.', hp:80, speed:6.2, dmg:1, dashCd:1.5, dashDmg:2.5, dashBoost:true, jacket:0x2f5b9a, cap:0xb83b3b},
+    agir:{name:'Ağır asker', color:'#8a6a3a', desc:'Zırh: aldığı hasar %20 azalır, hiçbir saldırı onu geri itemez. Av tüfeğiyle başlar. 140 can, yavaş.', hp:140, speed:4.5, dmg:1.1, dashCd:3, weapon:'shotgun', armor:.8, noKnock:true, jacket:0x5a4a32, cap:0x2f2a24},
+    muhendis:{name:'Mühendis', color:'#d08a2a', desc:'Usta işi: barikatları iki kat dayanıklı ve dikenli, tuzakları uzun sürer, donanım %25 ucuz. 2 barikat ve 2 tuzakla başlar.', hp:95, speed:5, dmg:1, dashCd:2.4, barr:2, trap:2, trapMul:1.6, barrMul:2, thorns:1.5, discount:.75, jacket:0xc77a1e, cap:0xe8c23a},
+    sihhiyeci:{name:'Sıhhiyeci', color:'#d8d8d0', desc:'Şifa: canı saniyede 1,5 yenilenir, ilk yardım kutuları iki kat iyileştirir, müttefiklerini de iyileştirir. Hasarı %10 düşük. 90 can.', hp:90, speed:5.1, dmg:.9, dashCd:2.4, regen:1.5, kitMul:2, jacket:0xd8d8d0, cap:0xc03030},
+    nisanci:{name:'Nişancı', color:'#6a7048', desc:'Kartal göz: %15 kritik şansı, kritik vuruşları 2,5 kat hasar verir. Keskin nişancı tüfeğiyle başlar. 85 can.', hp:85, speed:4.9, dmg:1, dashCd:2.6, weapon:'sniper', crit:.15, critMul:2.5, jacket:0x4a4e3a, cap:0x2a2e22},
   };
   const W = {
     pistol: {name:'Tabanca',        key:'1', dmg:1,   rate:.17, mag:12,  reload:1.0, spread:.035, pellets:1, life:.7,  speed:46, price:0},
     shotgun:{name:'Av tüfeği',      key:'2', dmg:.85, rate:.75, mag:6,   reload:1.7, spread:.3,   pellets:7, life:.32, speed:40, price:120},
     smg:    {name:'Makineli',       key:'3', dmg:.6,  rate:.075,mag:30,  reload:1.5, spread:.085, pellets:1, life:.6,  speed:50, price:200},
     sniper: {name:'Keskin nişancı', key:'4', dmg:7,   rate:1.0, mag:5,   reload:2.0, spread:.004, pellets:1, life:1.1, speed:95, price:260, pierce:99},
-    flamer: {name:'Alev silahı',    key:'5', dmg:.55, rate:.035,mag:100, reload:2.2, spread:.22,  pellets:1, life:.42, speed:13, price:320, flame:true},
+    flamer: {name:'Alev silahı',    key:'5', dmg:.24, rate:.05, mag:60,  reload:2.6, spread:.22,  pellets:1, life:.36, speed:13, price:300, flame:true},
+    tesla:  {name:'Şimşek tüfeği',  key:'7', dmg:1.5, rate:.42, mag:10,  reload:1.9, spread:0,    pellets:1, life:0,   speed:0,  price:280, tesla:true},
+    launcher:{name:'Bombaatar',      key:'8', dmg:3.2, rate:1.0, mag:4,   reload:2.4, spread:0,    pellets:1, life:0,   speed:20, price:380, launcher:true},
     bat:    {name:'Beyzbol sopası', key:'6', dmg:2.6, rate:.5,  mag:0,   reload:0,   spread:0,    pellets:0, life:0,   speed:0,  price:0, melee:true},
   };
-  const WORDER = ['pistol','shotgun','smg','sniper','flamer','bat'];
+  const WORDER = ['pistol','shotgun','smg','sniper','flamer','tesla','launcher','bat'];
   const ZT = {
     walker:  {name:'Yürüyen',  speed:2.1, hp:3,  scale:1,    pts:10,  coin:5,   xp:10,  r:.42, dmg:10},
     runner:  {name:'Koşan',    speed:3.9, hp:2,  scale:.95,  pts:15,  coin:7,   xp:12,  r:.4,  dmg:8},
@@ -564,7 +568,7 @@ body.touch .tut{top:150px}
     doctor:  {name:'Başhekim', speed:1.7, hp:58, scale:1.45, pts:500, coin:150, xp:200, r:.75, dmg:18, boss:true, title:'BAŞHEKİM'},
   };
   const BOSSES = ['necro','butcher','beast','doctor'];
-  const NEW_TYPE_HINT = {2:'Koşan zombilere dikkat', 3:'Tükürgenler uzaktan asit atar', 4:'İri zombiler ve karga sürüleri katıldı', 5:'Boss geliyor! Kalkanlılara önden mermi işlemez', 6:'Patlayanlardan uzak dur, kazıcılar yerden çıkar', 7:'Gölgeler yaklaşınca el fenerin söner'};
+  const NEW_TYPE_HINT = {2:'Koşan zombilere dikkat', 3:'Tükürgenler uzaktan asit atar', 4:'İri zombiler ve karga sürüleri katıldı', 5:'Kalkanlılara önden mermi işlemez', 6:'Patlayanlardan uzak dur, kazıcılar yerden çıkar', 7:'Gölgeler yaklaşınca el fenerin söner'};
   const SKINS = [
     {id:'std', name:'Standart', desc:'Karakterin kendi kıyafeti', cost:0},
     {id:'gece', name:'Gece kartalı', desc:'Siyah ceket, kırmızı bere', cost:25, jacket:0x22252c, cap:0xb02a2a},
@@ -594,7 +598,9 @@ body.touch .tut{top:150px}
     shotgun:{name:'Ejderha Nefesi',      perk:'dmg',    desc:'10 saçma atar, vurduğu zombiyi tutuşturur', dmg:1},
     smg:    {name:'Mermi Fırtınası',     perk:'rate',   desc:'%35 daha hızlı ateş, şarjör 1,5 katı', dmg:1},
     sniper: {name:'Raylı Tüfek',         perk:'pierce', desc:'Hasar 1,7 katı, yarı sürede dolar', dmg:1.7},
-    flamer: {name:'Cehennem Püskürtücü', perk:'burn',   desc:'Menzil 1,5 katı, hasar 1,6 katı', dmg:1.6},
+    flamer: {name:'Cehennem Püskürtücü', perk:'burn',   desc:'Menzil 1,5 katı, hasar 1,3 katı', dmg:1.3},
+    tesla:  {name:'Fırtına Çağıran',     perk:'reload', desc:'Şimşek 7 zombiye sıçrar, hasar 1,4 katı', dmg:1.4},
+    launcher:{name:'Kıyamet Topu',       perk:'bomb',   desc:'Patlama alanı %40 büyük, hasar 1,4 katı', dmg:1.4},
     bat:    {name:'Çivili Sopa',         perk:'bat',    desc:'Çevrendeki herkese vurur, hasar 1,6 katı', dmg:1.6},
   };
   const META = [
@@ -1276,6 +1282,14 @@ body.touch .tut{top:150px}
     g = gunParts.flamer = mk();
     cyl(g,.035,.045,.62,steel,0,0,-.28); box(g,.08,.12,.26,black,0,-.03,.04); cyl(g,.06,.06,.3,std({color:0xa8321e, roughness:.4, metalness:.5}),0,-.14,-.1);
     const pilot = new THREE.Mesh(new THREE.SphereGeometry(.02,6,4), new THREE.MeshBasicMaterial({color:L(0x60b0ff)})); pilot.position.set(0,-.03,-.6); g.add(pilot); g.userData.muzzle = -.62;
+    const coil = new THREE.MeshStandardMaterial({color:L(0x9ad8ff), emissive:L(0x40a0ff), emissiveIntensity:2.2});
+    g = gunParts.tesla = mk();
+    box(g,.08,.1,.34,black,0,0,-.1); cyl(g,.03,.03,.36,steel,0,.02,-.4); box(g,.05,.14,.07,black,0,-.1,-.02,-.2);
+    for (let i=0;i<3;i++){ const ring = new THREE.Mesh(new THREE.TorusGeometry(.055,.012,6,14), coil); ring.position.set(0,.02,-.3 - i*.08); g.add(ring); }
+    const tip = new THREE.Mesh(new THREE.SphereGeometry(.04,8,6), coil); tip.position.set(0,.02,-.6); g.add(tip); g.userData.muzzle = -.6;
+    g = gunParts.launcher = mk();
+    cyl(g,.075,.075,.62,olive,0,.02,-.24); cyl(g,.085,.085,.08,black,0,.02,-.56); box(g,.06,.14,.08,black,0,-.1,-.1,-.2); box(g,.07,.08,.24,black,0,-.02,.18);
+    g.userData.muzzle = -.6;
     g = gunParts.bat = mk();
     const bat = new THREE.Mesh(new THREE.CylinderGeometry(.055,.022,.9,10), woodM); bat.position.set(0,.4,0); bat.castShadow = true; g.add(bat);
     const tape = new THREE.Mesh(new THREE.CylinderGeometry(.026,.024,.2,8), black); tape.position.set(0,.04,0); g.add(tape);
@@ -1396,9 +1410,11 @@ body.touch .tut{top:150px}
     const g = rig.g;
     g.traverse(m => { if (m.isMesh){ m.castShadow = Q.zShadow || !!d.boss; } });
     g.scale.setScalar(d.scale * (d.boss ? 1 : rand(.92,1.08)));
-    const waveMul = d.boss ? Math.max(1, wave/5) : 1 + (wave-1)*.06;
+    // dalga ilerledikçe zombiler daha dayanıklı, hızlı ve sert vurur; erken bosslar biraz zayıf, son boss güçlü
+    const waveMul = d.boss ? .55 + wave*.09 : 1 + (wave-1)*.1;
     const hpv = d.hp * D.hp * waveMul * (opts.hpMul || 1);
-    return Object.assign({g, rig, type, hp:hpv, maxHp:hpv, speed:d.speed*D.spd*(d.boss ? 1 : (1 + (wave-1)*.03)*R(.9,1.12)), r:d.r,
+    extra.dmgMul = 1 + (wave-1)*.05;
+    return Object.assign({g, rig, type, hp:hpv, maxHp:hpv, speed:d.speed*D.spd*(d.boss ? 1 : (1 + (wave-1)*.035)*R(.9,1.12)), r:d.r,
       mats:rig.mats, ph:rand(0,6.28), hitT:0, dead:false, deadT:0, atk:0, groan:rand(2,8), burnT:0,
       spitT:R(1.5,3), fuse:-1, rise:0, slowT:0, stuck:0, detour:0, side:1, mode:'walk', abT:3, t:0, ring:null, cdir:new THREE.Vector3(), chargeHit:false, summonT:5, tpT:0}, extra);
   }
@@ -1538,7 +1554,17 @@ body.touch .tut{top:150px}
   let D = DIFFS[diffId], CH = CHARS[charId];
   let hp=100, maxHp=100, wave=1, score=0, kills=0, coins=0, xp=0, level=1, xpNeed=85, pendingLv=0, grenades=0, invBarr=0, invTrap=0, endless=false, wonRun=false;
   let stats = {}, owned = {}, ammoOf = {}, wlvl = {}, cur = 'pistol', reloadT=0, fireT=0, dashT=0, dashCd=0, invulnT=0, hurtT=0, shake=0;
-  let toSpawn=0, spawnT=0, bossPending=0, bossType='butcher', clearT=0, waveActive=false, prices={}, waveDamage=0;
+  let toSpawn=0, spawnT=0, bossPending=0, bossType='butcher', bossPending2=0, bossType2='necro', clearT=0, waveActive=false, prices={}, waveDamage=0;
+  let bolts = [], shells = [], dashHit = new Set(), boostT = 0, regenT = 0;
+  // Bosslar her 3 dalgada bir: 3, 6, 9 ve 12. dalga (12. dalga haritanın kendi boss'u). Sonsuz modda da her 3 dalgada bir.
+  const isBossWave = w => w % 3 === 0;
+  function bossFor(w){
+    const mb = MAPS[run.map].boss, others = BOSSES.filter(b => b !== mb);
+    if (w === WIN_WAVE) return mb;
+    if (w < WIN_WAVE) return others[(w/3 - 1) % others.length];
+    return BOSSES[Math.floor(rng()*BOSSES.length)];
+  }
+  const critMul = () => CH.critMul || 2;
   let combo=0, comboT=0, bestCombo=0, flameSndT=0;
   let event = null, survivor = null, allies = [];
   let zombies=[], bullets=[], flames=[], puffs=[], kits=[], acids=[], grens=[], traps=[], barricades=[], booms=[], goos=[], crates=[], chainQ=[];
@@ -1856,7 +1882,7 @@ body.touch .tut{top:150px}
   }
   function damagePlayer(n){
     if (invulnT > 0 || state !== 'play') return;
-    const v = n * D.dmg;
+    const v = n * D.dmg * (CH.armor || 1);
     hp -= v; waveDamage += v; hurtT = .35; invulnT = .12; shake = Math.max(shake, .25);
     tone(160,.2,'sawtooth',.06,-60); buzz(40); hud();
     if (hp <= 0) gameOver();
@@ -1891,7 +1917,7 @@ body.touch .tut{top:150px}
         const ang = Math.acos(clamp((dx*aim.x + dz*aim.z)/(d||1), -1, 1));
         if (ang > 1.15 && !spin) continue;
         const crit = Math.random() < stats.crit;
-        hurtZombie(z, dmgOf('bat') * (crit ? 2 : 1), new THREE.Vector3(dx,0,dz).normalize(), 1.3, {src:'bat', crit});
+        hurtZombie(z, dmgOf('bat') * (crit ? critMul() : 1), new THREE.Vector3(dx,0,dz).normalize(), 1.3, {src:'bat', crit});
         z.slowT = .4; hit = true;
       }
       if (hit){ tone(120,.12,'square',.08,-40); shake = Math.max(shake,.12); buzz(25); stop(.035); }
@@ -1903,6 +1929,11 @@ body.touch .tut{top:150px}
     if (ammoOf[cur] <= 0){ reload(); return; }
     ammoOf[cur]--; fireT = w.rate * stats.rateMul * (ev[cur] && cur === 'smg' ? .65 : 1);
     const mp = muzzlePos();
+    if (w.tesla || w.launcher){
+      if (w.tesla) fireTesla(mp.clone()); else fireShell(mp.clone());
+      if (ammoOf[cur] === 0) reload();
+      hud(); return;
+    }
     if (w.flame){
       const dir = aim.clone(); const a = rand(-w.spread, w.spread); const c = Math.cos(a), s = Math.sin(a); dir.set(aim.x*c - aim.z*s, 0, aim.x*s + aim.z*c);
       const sp = new THREE.Sprite(new THREE.SpriteMaterial({map:TEX.soft, color:L(rpick([0xffb050,0xff8030,0xffd070])), transparent:true, opacity:.95, blending:THREE.AdditiveBlending, depthWrite:false}));
@@ -1921,7 +1952,7 @@ body.touch .tut{top:150px}
       const m = new THREE.Mesh(bulletGeo, bulletMat);
       m.position.copy(mp); m.lookAt(mp.clone().add(dir)); scene.add(m);
       const crit = Math.random() < stats.crit;
-      bullets.push({m, dir, life:w.life*rand(.9,1.1), speed:w.speed, dmg:dmgOf(cur)*(crit ? 2 : 1), crit, pierce:(w.pierce || 0) + stats.pierce + (cur === 'pistol' && ev.pistol ? 1 : 0), hit:new Set(), kills:0, sniper:cur === 'sniper', burn:cur === 'shotgun' && !!ev.shotgun});
+      bullets.push({m, dir, life:w.life*rand(.9,1.1), speed:w.speed, dmg:dmgOf(cur)*(crit ? critMul() : 1), crit, pierce:(w.pierce || 0) + stats.pierce + (cur === 'pistol' && ev.pistol ? 1 : 0), hit:new Set(), kills:0, sniper:cur === 'sniper', burn:cur === 'shotgun' && !!ev.shotgun});
     }
     P.muzzle.intensity = cur === 'shotgun' || cur === 'sniper' ? 7 : 4.5; P.muzzle.color = L(0xffc46b);
     P.mflash.position.set(0, 1.33, -.9 - (gunParts[cur].userData.muzzle ? -gunParts[cur].userData.muzzle*.9 : 0)); P.mflash.material.opacity = 1; P.mflash.material.rotation = rand(0,6);
@@ -1931,6 +1962,62 @@ body.touch .tut{top:150px}
     else noise(.12,.22,1800);
     if (ammoOf[cur] === 0) reload();
     hud();
+  }
+  // ---------- şimşek tüfeği ----------
+  const boltMat = new THREE.LineBasicMaterial({color:L(0xbfe8ff), transparent:true, opacity:1, blending:THREE.AdditiveBlending});
+  function bolt(pts){
+    const arr = [];
+    for (let i=0;i<pts.length-1;i++){
+      const a = pts[i], b = pts[i+1], n = 7;
+      for (let k=0;k<=n;k++){ const t = k/n, j = (k === 0 || k === n) ? 0 : .35; arr.push(new THREE.Vector3(lerp(a.x,b.x,t) + rand(-j,j), lerp(a.y,b.y,t) + rand(-j,j)*.6, lerp(a.z,b.z,t) + rand(-j,j))); }
+    }
+    const line = new THREE.Line(new THREE.BufferGeometry().setFromPoints(arr), boltMat.clone()); scene.add(line); bolts.push({m:line, life:.14});
+  }
+  function fireTesla(mp){
+    const pp = P.g.position; let first = null, bs = 1e9;
+    for (const z of zombies){
+      if (z.dead || z.rise > .6) continue;
+      const dx = z.g.position.x - pp.x, dz = z.g.position.z - pp.z, d = Math.hypot(dx,dz);
+      if (d > 13 || d < .01) continue;
+      const ang = Math.acos(clamp((dx*aim.x + dz*aim.z)/d, -1, 1));
+      if (ang > .32 + Math.min(.3, .8/d)) continue;
+      const sc = ang*6 + d*.15;
+      if (sc < bs && clearShot(pp.x, pp.z, z.g.position.x, z.g.position.z)){ bs = sc; first = z; }
+    }
+    P.muzzle.intensity = 5; P.muzzle.color = L(0x80c8ff);
+    if (!first){ bolt([mp, mp.clone().addScaledVector(aim, 5)]); noise(.15,.12,4000); return; }
+    const hops = ev.tesla ? 7 : 4, hit = new Set(); let z = first, dmg = dmgOf('tesla'), from = mp;
+    for (let i=0; i<hops && z; i++){
+      hit.add(z); const zp = z.g.position.clone(); zp.y = 1.1*ZT[z.type].scale;
+      bolt([from, zp]); from = zp;
+      const crit = Math.random() < stats.crit;
+      hurtZombie(z, dmg*(crit ? critMul() : 1), null, 0, {src:'tesla', crit}); z.slowT = Math.max(z.slowT, .6);
+      puff(zp.x, zp.y, zp.z, 0x9ad8ff, 3, 1.5);
+      dmg *= .8;
+      let nx = null, nd = 4.5;
+      for (const o of zombies){ if (o.dead || hit.has(o) || o.rise > .6) continue; const d = Math.hypot(o.g.position.x - zp.x, o.g.position.z - zp.z); if (d < nd){ nd = d; nx = o; } }
+      z = nx;
+    }
+    noise(.25,.22,5000); tone(1800,.15,'sawtooth',.04,-1400); buzz(20);
+  }
+  // ---------- bombaatar ----------
+  const shellGeo = new THREE.CylinderGeometry(.07,.07,.28,8); shellGeo.rotateX(Math.PI/2);
+  const shellMat = std({color:0x4a5a3a, roughness:.5, metalness:.5});
+  function fireShell(mp){
+    const m = new THREE.Mesh(shellGeo, shellMat); m.position.copy(mp); m.lookAt(mp.clone().add(aim)); scene.add(m);
+    shells.push({m, dir:aim.clone(), dist:0, max:14, dmg:dmgOf('launcher'), vy:2.2});
+    noise(.3,.3,600); tone(110,.25,'sine',.12,-50); shake = Math.max(shake,.12); buzz(30);
+    P.muzzle.intensity = 6; P.muzzle.color = L(0xffa040);
+  }
+  function updateShells(dt){
+    for (let i=shells.length-1;i>=0;i--){
+      const s = shells[i], step = 20*dt;
+      s.m.position.addScaledVector(s.dir, step); s.dist += step; s.vy -= 9*dt; s.m.position.y = Math.max(.2, s.m.position.y + s.vy*dt);
+      if (Math.random() < .5) puff(s.m.position.x, s.m.position.y, s.m.position.z, 0x707070, 1, .3, .6);
+      const sp = s.m.position; let boom = s.dist >= s.max || sp.y <= .2 || !!hitObstacle(sp.x, sp.z);
+      if (!boom) for (const z of zombies){ if (z.dead || z.rise > .6) continue; if (Math.hypot(sp.x - z.g.position.x, sp.z - z.g.position.z) < z.r + .2){ boom = true; break; } }
+      if (boom){ explode(sp.x, sp.z, 2.6*stats.gRad*(ev.launcher ? 1.4 : 1), 0, s.dmg, 'launcher'); scene.remove(s.m); shells.splice(i,1); }
+    }
   }
   function throwGrenade(){
     if (state !== 'play') return;
@@ -1952,6 +2039,7 @@ body.touch .tut{top:150px}
     if (mx || mz) dashDir.set(mx,0,mz).normalize(); else dashDir.copy(aim);
     dashT = .18; dashCd = stats.dashCd; invulnT = Math.max(invulnT, .3);
     if (tut) tut.dash = true;
+    dashHit = new Set();
     noise(.2,.12,3000); tone(600,.15,'sine',.03,-300);
   }
   function placeBarricade(){
@@ -1967,7 +2055,7 @@ body.touch .tut{top:150px}
     shadowAll(g);
     g.position.set(x,0,z); g.rotation.y = Math.atan2(-aim.x, -aim.z); scene.add(g);
     const tx = -aim.z, tz = aim.x;
-    const b = {g, x, z, hp:45, obs:[]};
+    const b = {g, x, z, hp:45 * (CH.barrMul || 1), obs:[]};
     for (const k of [-.8,0,.8]){ const o = {kind:'c', x:x+tx*k, z:z+tz*k, r:.48, bullet:false, barr:b}; obstacles.push(o); b.obs.push(o); }
     barricades.push(b);
     tone(200,.1,'square',.04); tone(260,.1,'square',.04,0,.08); hud();
@@ -2089,7 +2177,7 @@ body.touch .tut{top:150px}
   // ================= EVENTS =================
   function startEvent(){
     event = null; $('eventTag').hidden = true; $('redmoon').hidden = true;
-    if (wave < 3 || wave % 5 === 0 || rng() > .38) return;
+    if (wave < 2 || isBossWave(wave) || rng() > .4) return;
     const type = RP(wave >= 4 ? ['drop','fog','redmoon','horde','horde'] : ['drop','fog','redmoon']);
     event = {type, t:0, dropped:false, started:false, left:0, sp:0};
     const tag = $('eventTag'); tag.hidden = false; tag.className = 'event ' + (type === 'redmoon' ? 'red' : type);
@@ -2116,7 +2204,8 @@ body.touch .tut{top:150px}
   function freshStats(){ return {dmgMul:1, rateMul:1, magMul:1, reloadMul:1, speed:5.2, crit:0, lifesteal:0, pierce:0, dashCd:2.4, gRad:1, burnMul:1, batMul:1, xpMul:1, magnet:2.4}; }
   function clearEntities(){
     zombies.forEach(z => { scene.remove(z.g); if (z.ring) scene.remove(z.ring); });
-    for (const arr of [bullets, acids, grens]) arr.forEach(b => scene.remove(b.m));
+    for (const arr of [bullets, acids, grens, shells, bolts]) arr.forEach(b => scene.remove(b.m));
+    shells = []; bolts = [];
     flames.forEach(f => { scene.remove(f.s); f.s.material.dispose(); });
     puffs.forEach(p => { scene.remove(p.m); p.m.material.dispose(); });
     kits.forEach(k => scene.remove(k.g)); traps.forEach(t => scene.remove(t.g)); barricades.forEach(b => scene.remove(b.g));
@@ -2131,6 +2220,7 @@ body.touch .tut{top:150px}
     D = DIFFS[run.diff]; CH = CHARS[run.char];
     stats = freshStats();
     stats.speed = CH.speed; stats.dashCd = CH.dashCd; stats.dmgMul = CH.dmg;
+    stats.reloadMul = CH.reloadMul || 1; stats.crit = CH.crit || 0; boostT = 0; regenT = 0;
     owned = {pistol:true, bat:true}; wlvl = {}; ev = {}; perksTaken = new Set(); hitStop = 0; WORDER.forEach(k => wlvl[k] = 1);
     ammoOf = {}; WORDER.forEach(k => ammoOf[k] = W[k].mag);
     maxHp = CH.hp; coins = 0; grenades = 2 + (CH.grenades || 0); invBarr = 1 + (CH.barr || 0); invTrap = CH.trap || 0;
@@ -2154,13 +2244,18 @@ body.touch .tut{top:150px}
   }
   function startWave(){
     waveActive = true; clearT = 0; waveDamage = 0;
-    const boss = wave % 5 === 0;
-    toSpawn = boss ? 4 + wave : 5 + wave*3; spawnT = 1;
-    bossPending = boss ? 2.5 : 0;
-    if (boss){ const order = [MAPS[run.map].boss, ...BOSSES.filter(b => b !== MAPS[run.map].boss)]; bossType = order[(wave/5 - 1) % order.length]; }
+    const boss = isBossWave(wave);
+    toSpawn = Math.round(boss ? 5 + wave*1.6 : 6 + wave*3.3); spawnT = 1;
+    bossPending = boss ? 2.5 : 0; bossPending2 = 0;
+    if (boss){
+      bossType = bossFor(wave);
+      if (wave > WIN_WAVE + 2){ bossType2 = BOSSES.filter(b => b !== bossType)[Math.floor(rng()*(BOSSES.length-1))]; bossPending2 = 12; }
+    }
+    if (CH.waveGren && wave > 1){ grenades++; toast('Asker: +1 el bombası'); }
     startEvent();
-    if ([3,7,10].includes(wave) || (endless && rng() < .25)) setTimeout(() => { if (state === 'play' && waveActive) spawnSurvivor(); }, 6000);
-    banner('Dalga ' + wave + (endless ? '' : ' / ' + WIN_WAVE), NEW_TYPE_HINT[wave] || (boss ? 'Boss geliyor!' : (wave === 1 ? 'Hazır ol, geliyorlar' : '')));
+    if ([4,7,11].includes(wave) || (endless && rng() < .25)) setTimeout(() => { if (state === 'play' && waveActive) spawnSurvivor(); }, 6000);
+    const hint = NEW_TYPE_HINT[wave] || (wave === 1 ? 'Hazır ol, geliyorlar' : '');
+    banner('Dalga ' + wave + (endless ? '' : ' / ' + WIN_WAVE), boss ? ZT[bossType].title + (wave === WIN_WAVE ? ' · son boss!' : ' geliyor!') + (hint ? ' · ' + hint : '') : hint);
     hud();
   }
   function waveCleared(){
@@ -2183,7 +2278,7 @@ body.touch .tut{top:150px}
   function SHOP_PRICE_RESET(){ prices = {gren:40, barr:45, trap:40, heal:30, maxhp:70, mag:60, boots:60, dmg:80}; }
   const disc = () => CH.discount || 1;
   function shopItems(){
-    const weapons = WORDER.filter(k => W[k].price).map(k => ({id:'w_'+k, group:'w', name:W[k].name, desc:{shotgun:'Yakında yıkıcı, 7 saçma',smg:'Çok hızlı ateş, 30 mermi',sniper:'Delip geçer, tek atışta büyük hasar',flamer:'Kısa menzil, zombileri tutuşturur'}[k] + '. Tuş: ' + W[k].key, price:W[k].price, owned:!!owned[k], buy(){ owned[k] = true; ammoOf[k] = magOf(k); switchWeapon(k); }}));
+    const weapons = WORDER.filter(k => W[k].price).map(k => ({id:'w_'+k, group:'w', name:W[k].name, desc:{shotgun:'Yakında yıkıcı, 7 saçma',smg:'Çok hızlı ateş, 30 mermi',sniper:'Delip geçer, tek atışta büyük hasar',flamer:'Kısa menzil, kalabalığı tutuşturur',tesla:'Zombiden zombiye sıçrayan şimşek, yavaşlatır',launcher:'Çarpınca patlayan bomba, kalabalığa karşı'}[k] + '. Tuş: ' + W[k].key, price:W[k].price, owned:!!owned[k], buy(){ owned[k] = true; ammoOf[k] = magOf(k); switchWeapon(k); }}));
     const upg = WORDER.filter(k => owned[k]).map(k => {
       const l = wlvl[k], E = EVOS[k];
       if (l < 3) return {id:'u_'+k, group:'u', name:wName(k), desc:'Seviye ' + (l+1) + ': hasar +%25' + (W[k].melee ? '' : ', şarjör +%20'), price:l === 1 ? 90 : 160, lvl:l, buy(){ wlvl[k]++; ammoOf[k] = magOf(k); }};
@@ -2214,7 +2309,7 @@ body.touch .tut{top:150px}
   }
   function renderShop(){
     $('shopCoins').textContent = coins;
-    $('shopInfo').textContent = 'Sıradaki dalga: ' + (wave+1) + ((wave+1) % 5 === 0 ? ' (boss dalgası)' : '') + ' · Can: ' + Math.ceil(hp) + ' / ' + maxHp;
+    $('shopInfo').textContent = 'Sıradaki dalga: ' + (wave+1) + (isBossWave(wave+1) ? (wave+1 <= WIN_WAVE ? ' (boss: ' + ZT[bossFor(wave+1)].title + ')' : ' (boss dalgası)') : '') + ' · Can: ' + Math.ceil(hp) + ' / ' + maxHp;
     const items = shopItems();
     const card = it => {
       const isOwned = it.owned, maxed = it.maxed;
@@ -2589,6 +2684,10 @@ body.touch .tut{top:150px}
       else { p.v.y -= 6*dt; p.m.position.addScaledVector(p.v, dt); p.m.material.opacity = Math.max(0, p.life/p.max); }
       if (p.life <= 0){ scene.remove(p.m); p.m.material.dispose(); puffs.splice(i,1); }
     }
+    for (let i=bolts.length-1;i>=0;i--){
+      const b = bolts[i]; b.life -= dt; b.m.material.opacity = Math.max(0, b.life/.14);
+      if (b.life <= 0){ scene.remove(b.m); b.m.geometry.dispose(); b.m.material.dispose(); bolts.splice(i,1); }
+    }
     for (let i=booms.length-1;i>=0;i--){
       const b = booms[i]; b.t += dt; const k = b.t/.35;
       b.m.scale.setScalar(.2 + b.rad*Math.min(1,k)); b.m.material.opacity = .75*(1-k);
@@ -2598,13 +2697,25 @@ body.touch .tut{top:150px}
     const pp = P.g.position;
     let moving = false;
     if (state === 'play'){
-      invulnT = Math.max(0, invulnT - dt); dashCd = Math.max(0, dashCd - dt); hurtT = Math.max(0, hurtT - dt);
+      invulnT = Math.max(0, invulnT - dt); dashCd = Math.max(0, dashCd - dt); hurtT = Math.max(0, hurtT - dt); boostT = Math.max(0, boostT - dt);
+      if (CH.regen && hp > 0){
+        if (hp < maxHp) hp = Math.min(maxHp, hp + CH.regen*dt);
+        for (const a of allies) a.hp = Math.min(a.maxHp, a.hp + CH.regen*dt);
+        regenT -= dt; if (regenT <= 0){ regenT = .5; hud(); }
+      }
       const tpx = pp.x, tpz = pp.z;
       let mx = (keys.d?1:0) - (keys.a?1:0), mz = (keys.s?1:0) - (keys.w?1:0);
       if ((touchMode || gp.on) && (move.x || move.z)){ mx = move.x * (gp.moveDriven ? 1 : ctrl.moveSens); mz = move.z * ctrl.moveSens; const l = Math.hypot(mx,mz); if (l > 1){ mx /= l; mz /= l; } }
       const ml = Math.hypot(mx,mz);
-      if (dashT > 0){ dashT -= dt; pp.addScaledVector(dashDir, 21*dt); moving = true; if (Math.random() < .6) puff(pp.x, .6, pp.z, 0x7cc7ff, 1, .5); }
-      else if (ml > 0){ const s = stats.speed * Math.min(1, ml) / ml; pp.x += mx*s*dt; pp.z += mz*s*dt; moving = true; }
+      if (dashT > 0){
+        dashT -= dt; pp.addScaledVector(dashDir, 21*dt); moving = true; if (Math.random() < .6) puff(pp.x, .6, pp.z, 0x7cc7ff, 1, .5);
+        if (CH.dashDmg) for (const z of zombies){
+          if (z.dead || z.fly || z.rise > .6 || dashHit.has(z)) continue;
+          if (Math.hypot(z.g.position.x - pp.x, z.g.position.z - pp.z) < z.r + .6){ dashHit.add(z); hurtZombie(z, CH.dashDmg*stats.dmgMul, dashDir, .9, {src:'dash'}); tone(300,.06,'square',.03,-100); }
+        }
+        if (dashT <= 0 && CH.dashBoost) boostT = 1.5;
+      }
+      else if (ml > 0){ const s = stats.speed * (boostT > 0 ? 1.35 : 1) * Math.min(1, ml) / ml; pp.x += mx*s*dt; pp.z += mz*s*dt; moving = true; }
       pushOut(pp, .38);
       if (tut) tutUpdate(dt, Math.hypot(pp.x - tpx, pp.z - tpz));
       let touchFire = false; lockZ = null;
@@ -2639,11 +2750,12 @@ body.touch .tut{top:150px}
         const tutHold = tut && (tut.step < 2 || (tut.step === 2 && alive >= 1));
         if (toSpawn > 0 && alive < MAX_ALIVE && !tutHold){
           spawnT -= dt;
-          if (spawnT <= 0){ spawnZombie(); toSpawn--; spawnT = Math.max(.3, 1.4 - wave*.08) * R(.6,1.3); }
+          if (spawnT <= 0){ spawnZombie(); toSpawn--; spawnT = Math.max(.22, 1.3 - wave*.09) * R(.6,1.3); }
         }
         if (bossPending > 0){ bossPending -= dt; if (bossPending <= 0) spawnZombie(bossType); }
+        if (bossPending2 > 0){ bossPending2 -= dt; if (bossPending2 <= 0) spawnZombie(bossType2); }
         const hordePending = event && event.type === 'horde' && (!event.started || event.left > 0);
-        if (toSpawn <= 0 && bossPending <= 0 && alive === 0 && !hordePending) waveCleared();
+        if (toSpawn <= 0 && bossPending <= 0 && bossPending2 <= 0 && alive === 0 && !hordePending) waveCleared();
         if (event && event.type === 'horde'){
           event.t += dt;
           if (!event.started && event.t > 9){ event.started = true; event.side = Math.floor(R(0,4)); event.left = 8 + wave; banner('Sürü baskını!', ['Kuzeyden','Güneyden','Batıdan','Doğudan'][event.side] + ' geliyorlar'); tone(90,1.2,'sawtooth',.08,-30); shake = .3; $('eventTag').textContent = 'Sürü baskını!'; }
@@ -2665,7 +2777,7 @@ body.touch .tut{top:150px}
         if (z.hitT > 0){ z.hitT -= dt; z.mats.forEach(m => m.emissive.setHex(z.hitT > 0 ? 0x666666 : 0)); }
         if (z.burnT > 0){
           z.burnT -= dt;
-          hurtZombie(z, 1.2*stats.burnMul*stats.dmgMul*dt, null, 0, {quiet:true, burn:true, src:'fire'});
+          hurtZombie(z, .8*stats.burnMul*stats.dmgMul*dt, null, 0, {quiet:true, burn:true, src:'fire'});
           if (Math.random() < .35) puff(zp.x + rand(-.2,.2), rand(.8,1.6)*d0.scale, zp.z + rand(-.2,.2), rpick([0xff8a30,0xffc060]), 1, .4, .7);
           if (z.dead) continue;
           if (z.hitT <= 0) z.mats.forEach(m => m.emissive.setHex(Math.sin(T*30) > 0 ? 0x5a2000 : 0x200800));
@@ -2692,7 +2804,7 @@ body.touch .tut{top:150px}
             const bx = zp.x, bz = zp.z;
             zp.addScaledVector(z.cdir, 11*dt); pushOut(zp, z.r);
             if (Math.random() < .5) puff(zp.x,.3,zp.z,0x5a4a35,1,1);
-            if (!z.chargeHit && d < z.r + .7){ z.chargeHit = true; damageTarget(tg, 30); if (tg.kind === 'player'){ pp.addScaledVector(z.cdir, 1.5); pushOut(pp,.38); } }
+            if (!z.chargeHit && d < z.r + .7){ z.chargeHit = true; damageTarget(tg, 30); if (tg.kind === 'player' && !CH.noKnock){ pp.addScaledVector(z.cdir, 1.5); pushOut(pp,.38); } }
             if (z.t <= 0 || Math.hypot(zp.x-bx, zp.z-bz) < 11*dt*.3){ z.mode = 'walk'; z.abT = R(3.5,5.5); shake = Math.max(shake,.2); }
           } else if (z.mode === 'slamT'){
             wantMove = false; z.t -= dt;
@@ -2784,10 +2896,10 @@ body.touch .tut{top:150px}
         else z.g.rotation.y = Math.atan2(-dx, -dz);
         animZombie(z, dt, wantMove && d > z.r + .45 || z.mode === 'charge' || z.mode === 'lunge', T);
         z.atk -= dt;
-        if (d0.dmg > 0 && z.mode === 'walk' && d < z.r + .65 && z.atk <= 0){ z.atk = .8; damageTarget(tg, d0.dmg); if (state !== 'play') break; }
+        if (d0.dmg > 0 && z.mode === 'walk' && d < z.r + .65 && z.atk <= 0){ z.atk = .8; damageTarget(tg, d0.dmg * (z.dmgMul || 1)); if (state !== 'play') break; }
         if (z.atk <= 0 && barricades.length){
           outer: for (const b of barricades) for (const o of b.obs){
-            if (Math.hypot(zp.x-o.x, zp.z-o.z) < o.r + z.r + .3){ z.atk = .9; hitBarricade(b, z.type === 'brute' ? 8 : d0.boss ? 25 : 3); break outer; }
+            if (Math.hypot(zp.x-o.x, zp.z-o.z) < o.r + z.r + .3){ z.atk = .9; hitBarricade(b, z.type === 'brute' ? 8 : d0.boss ? 25 : 3); if (CH.thorns) hurtZombie(z, CH.thorns*stats.dmgMul, null, 0, {quiet:true, src:'trap'}); break outer; }
           }
         }
         z.groan -= dt;
@@ -2802,6 +2914,7 @@ body.touch .tut{top:150px}
         if (!gone && hitObstacle(ap.x, ap.z)){ puff(ap.x,1,ap.z,0xb6ff5a,4); gone = true; }
         if (gone){ scene.remove(a.m); acids.splice(i,1); }
       }
+      updateShells(dt);
       // el bombaları
       for (let i=grens.length-1;i>=0;i--){
         const g = grens[i]; g.fuse -= dt;
@@ -2828,7 +2941,8 @@ body.touch .tut{top:150px}
       for (let i=kits.length-1;i>=0;i--){
         const k = kits[i]; k.g.rotation.y += dt*2; k.g.position.y = .35 + Math.sin(T*3+i)*.08; k.life -= dt;
         if (Math.hypot(k.g.position.x-pp.x, k.g.position.z-pp.z) < .95){
-          hp = Math.min(maxHp, hp + 25); hud(); scene.remove(k.g); kits.splice(i,1); floatText(pp.x, 2.2, pp.z, '+25', 'heal');
+          const heal = 25 * (CH.kitMul || 1);
+          hp = Math.min(maxHp, hp + heal); hud(); scene.remove(k.g); kits.splice(i,1); floatText(pp.x, 2.2, pp.z, '+' + heal, 'heal');
           tone(660,.1,'sine',.05,400); tone(990,.12,'sine',.04,200,.08); continue;
         }
         if (k.life < 4) k.g.visible = Math.sin(T*12) > 0;
@@ -3282,8 +3396,8 @@ body.touch .tut{top:150px}
     if (state === 'play'){
       if (k === 'r') reload();
       if (k === 'q') cycleWeapon();
-      const idx = '123456'.indexOf(k);
-      if (idx >= 0 && k !== ''){ const wk = WORDER[idx]; owned[wk] ? switchWeapon(wk) : toast(W[wk].name + ' dükkânda satılıyor'); }
+      const wk = WORDER.find(x => W[x].key === k);
+      if (wk){ owned[wk] ? switchWeapon(wk) : toast(W[wk].name + ' dükkânda satılıyor'); }
       if (k === 'g') throwGrenade();
       if (k === 'b') placeBarricade();
       if (k === 't') placeTrap();
